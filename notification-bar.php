@@ -71,7 +71,7 @@ function nb_initialize_settings() {
 	add_settings_field(
 		'notification_text',
 		__( 'Notification Text', 'notification-bar' ),
-		'text_input_callback',
+		'text_input_callbacks',
 		'nb_general_settings',
 		'general_section',
 
@@ -111,26 +111,49 @@ function nb_initialize_settings() {
 add_action( 'admin_init', 'nb_initialize_settings' );
 
 
+//Display the header of the general settings
+function text_input_callback() {
+	_e( 'Notification Settings', 'notification-bar' );
+}
+
+// Text Input Callbacks
+function text_input_callbacks ( $text_input ) {
 
 
+	//Get arguments from settings
+	$option_group = $text_input['option_group'];
+	$option_id = $text_input['option_id'];
+	$option_name = "{$option_group}[{$option_id}]";
+
+	// Get exsisting option from Database
+	$options = get_option( $option_group );
+	$option_value = isset( $options[$option_id] ) ? $options[$option_id] : "";
+
+	//Render the output
+	echo "<Input type='text' size='50' id='{option_id}' name='{$option_name}' value='{option_value}' />";
+
+}
+
+//Checkbox Input Callbacks
+function radio_input_callback ($radio_input) {
+
+	//Get arguments from setting
+	$option_group = $radio_input['option_group'];
+	$option_id = $radio_input['option_id'];
+	$option_name = "{$option_group}[{$option_id}]";
+
+	// Get exsisting option from Database
+	$options = get_option( $option_group );
+	$option_value = isset( $options[$option_id] ) ? $options[$option_id] : "";
+
+	// Render the output
+    $input = '';
+    foreach ( $radio_options as $radio_option_id => $radio_option_value) {
+	    $input .= "<input type='radio' id='{$radio_option_id}' name='{$option_name}' value='{$radio_option_id}' " . checked( $radio_option_id, $option_value, false ) . " />";
+	    $input .= "<label for='{$radio_option_id}'>{$radio_option_value}</label><br />";
+	}
+
+    echo $input;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
