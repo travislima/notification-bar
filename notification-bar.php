@@ -37,7 +37,7 @@ function nb_render_settings_page () {
 
 		<h2><?php _e( 'Notification Bar Settings', 'notification-bar' ); ?></h2>
 
-		<form method="post" action="options.php">
+		<form method="POST" action="options.php">
 
 			<?php
 			//Get settings for the plugin to display in the form
@@ -97,7 +97,7 @@ function nb_initialize_settings() {
 			'radio-options' => array(
 				'display_none' => 'Do not display notification bar',
 				'display_top' => 'Display notification bar on the top of the site',
-				'diaply_bottom' => 'Display notification bar on the bottom of the site'
+				'display_bottom' => 'Display notification bar on the bottom of the site'
 			)
 		)
 	);
@@ -126,7 +126,7 @@ function text_input_callbacks ( $text_input ) {
 	$option_name = "{$option_group}[{$option_id}]";
 
 	// Get exsisting option from Database
-	$options = get_option( $option_group );
+$options = get_option( $option_group );
 	$option_value = isset( $options[$option_id] ) ? $options[$option_id] : "";
 
 	//Render the output
@@ -135,12 +135,13 @@ function text_input_callbacks ( $text_input ) {
 }
 
 //Checkbox Input Callbacks
-function radio_input_callback ($radio_input) {
+function radio_input_callback( $radio_options ) {
 
 	//Get arguments from setting
-	$option_group = $radio_input['option_group'];
-	$option_id = $radio_input['option_id'];
+	$option_group = $radio_options['option_group'];
+	$option_id = $radio_options['option_id'];
 	$option_name = "{$option_group}[{$option_id}]";
+
 
 	// Get exsisting option from Database
 	$options = get_option( $option_group );
@@ -148,12 +149,15 @@ function radio_input_callback ($radio_input) {
 
 	// Render the output
     $input = '';
-    foreach ( $radio_options as $radio_option_id => $radio_option_value) {
-	    $input .= "<input type='radio' id='{$radio_option_id}' name='{$option_name}' value='{$radio_option_id}' " . checked( $radio_option_id, $option_value, false ) . " />";
-	    $input .= "<label for='{$radio_option_id}'>{$radio_option_value}</label><br />";
-	}
+	foreach( $radio_options as $options ) {
+		if( is_array( $options ) ) {
+			foreach( $options as $option_id => $option_value ) {
+				$input .= "<input type='radio' id='some-id-{$option_id}' name='{$option_id}' value='{$option_id}' " . checked( $option_id, $option_value, false ) . " />";
+				$input .= "<label for='{$option_id}'>{$option_value}</label><br />";
+			}
+		}
+	} 
 
-    echo $input;
-
+	echo $input;
 
 }
