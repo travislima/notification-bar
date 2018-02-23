@@ -102,8 +102,8 @@ function nb_initialize_settings() {
 		)
 	);
 
-	register_settings(
-		'nb_general_settings',      !!!!! Uncomment when closer to finishing the code tutorial.
+	register_setting(
+		'nb_general_settings', 
 		'nb_general_settings'
 	);
 }
