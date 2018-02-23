@@ -161,3 +161,25 @@ function radio_input_callback( $radio_options ) {
 	echo $input;
 
 }
+
+
+//Display the notification bar on the frontend of the site
+add_action( 'wp_footer', 'nb_display_notification_bar' );
+function nb_display_notification_bar() {
+
+	if ( !null == get_option( 'nb_general_settings' )) {
+
+		$options = get_option( 'nb_general_settings' );
+
+		?>
+		<div class="nb-notification-bar <?php echo $options['display_location']; ?>">
+			<div class="nb-notification-text"><?php echo $options['notification_text']; ?></div></div>
+			<?php
+
+	}
+}
+
+
+
+
+
