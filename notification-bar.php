@@ -112,7 +112,7 @@ add_action( 'admin_init', 'nb_initialize_settings' );
 
 
 //Display the header of the general settings
-function text_input_callback() {
+function general_settings_callback() {
 	_e( 'Notification Settings', 'notification-bar' );
 }
 
