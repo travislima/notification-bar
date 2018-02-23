@@ -102,10 +102,10 @@ function nb_initialize_settings() {
 		)
 	);
 
-	//register_settings(
-	//	'nb_general_settings',      !!!!! Uncomment when closer to finishing the code tutorial.
-	//	'nb_general_settings'
-	//);
+	register_settings(
+		'nb_general_settings',      !!!!! Uncomment when closer to finishing the code tutorial.
+		'nb_general_settings'
+	);
 }
 
 add_action( 'admin_init', 'nb_initialize_settings' );
