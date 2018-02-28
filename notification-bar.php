@@ -130,7 +130,7 @@ $options = get_option( $option_group );
 	$option_value = isset( $options[$option_id] ) ? $options[$option_id] : "";
 
 	//Render the output
-	echo "<Input type='text' size='50' id='{option_id}' name='{$option_name}' value='{option_value}' />";
+	echo "<Input type='text' size='50' id='{option_id}' name='{$option_name}' value='{$option_value}' />";
 
 }
 
@@ -152,7 +152,7 @@ function radio_input_callback( $radio_options ) {
 	foreach( $radio_options as $options ) {
 		if( is_array( $options ) ) {
 			foreach( $options as $option_id => $option_value ) {
-				$input .= "<input type='radio' id='some-id-{$option_id}' name='{$option_id}' value='{$option_id}' " . checked( $option_id, $option_value, false ) . " />";
+				$input .= "<input type='radio' id='some-id-{$option_id}' name='notification-bar-radio-button' value='1' " . checked( $option_id, $option_value, false ) . " />";
 				$input .= "<label for='{$option_id}'>{$option_value}</label><br />";
 			}
 		}
