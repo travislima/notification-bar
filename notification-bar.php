@@ -82,25 +82,7 @@ function nb_initialize_settings() {
 		)
 	);
 
-	add_settings_field(
-		'display_location',
-		__( 'Where will the notification bar display?', 'notification-bar' ),
-		'radio_input_callback',
-		'nb_general_settings',
-		'general_section',
-		
-		array(
-			'label_for' => 'display_location',
-			'option_group' => 'nb_general_settings',
-			'option_id' => 'display_location',
-			'option_description' => 'Display notification bar on bottom of the site',
-			'radio-options' => array(
-				'display_none' => 'Do not display notification bar',
-				'display_top' => 'Display notification bar on the top of the site',
-				'display_bottom' => 'Display notification bar on the bottom of the site'
-			)
-		)
-	);
+
 
 	register_setting(
 		'nb_general_settings', 
@@ -134,34 +116,6 @@ $options = get_option( $option_group );
 
 }
 
-//Checkbox Input Callbacks
-function radio_input_callback( $radio_options ) {
-
-	//Get arguments from setting
-	$option_group = $radio_options['option_group'];
-	$option_id = $radio_options['option_id'];
-	$option_name = "{$option_group}[{$option_id}]";
-
-
-	// Get exsisting option from Database
-	$options = get_option( $option_group );
-	$option_value = isset( $options[$option_id] ) ? $options[$option_id] : "";
-
-	// Render the output
-    $input = '';
-	foreach( $radio_options as $options ) {
-		if( is_array( $options ) ) {
-			foreach( $options as $option_id => $option_value ) {
-				$input .= "<input type='radio' id='some-id-{$option_id}' name='notification-bar-radio-button' value='1' " . checked( $option_id, $option_value, false ) . " />";
-				$input .= "<label for='{$option_id}'>{$option_value}</label><br />";
-			}
-		}
-	} 
-
-	echo $input;
-
-}
-
 
 //Display the notification bar on the frontend of the site
 add_action( 'wp_footer', 'nb_display_notification_bar' );
@@ -178,8 +132,3 @@ function nb_display_notification_bar() {
 
 	}
 }
-
-
-
-
-
